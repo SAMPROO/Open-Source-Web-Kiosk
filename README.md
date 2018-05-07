@@ -3,10 +3,19 @@ Open Source Web Kiosk
 We are three ICT students from Metropolia University of Applied Sciences and this is our Open Source Web Kiosk project. Feel free to download and enjoy! 
 
 --Web Kiosk capabilities--
+
 1. Websites
 2. Picutres
 3. Videos
 4. Slideshows
+
+--Requirements--
+
+1. Raspberry Pi
+2. HDMI Cable
+3. Raspberry Power Cable
+4. Wifi Cable or Wifi Wireless Adapter (For Website functionality)
+4. MicroSD Memory Card
 
 --How to Setup--
 
