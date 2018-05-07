@@ -1,5 +1,13 @@
 Open Source Web Kiosk
 
+We are three ICT students from Metropolia University of Applied Sciences and this is our Open Source Web Kiosk project. Feel free to download and enjoy! 
+
+--Web Kiosk capabilities--
+1. Websites
+2. Picutres
+3. Videos
+4. Slideshows
+
 --How to Setup--
 
 1. Download WebKiosk.tar.gz
