@@ -15,7 +15,9 @@ We are three ICT students from Metropolia University of Applied Sciences and thi
 2. HDMI Cable
 3. Raspberry Power Cable
 4. Wifi Cable or Wifi Wireless Adapter (For Website functionality)
-4. MicroSD Memory Card
+5. MicroSD Memory Card
+6. Screen
+
 
 --How to Setup--
 
