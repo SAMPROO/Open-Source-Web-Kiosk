@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+div.main_page {
+    position: relative;
+    display: table;
+
+    width: 800px;
+
+    margin-bottom: auto;
+	bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px 5px 20px 5px;
+
+    border-width: 2px;
+    border-color: #212738;
+    border-style: solid;
+
+    background-color: #f8f8f8;
+
+    text-align: center;
+}
+
+#para1 {
+    text-align: center;
+    font-size:23px;
+    font-family: Courier;
+	padding-top: 20px;
+	font-weight: bold;
+	color: #04040;
+
+
+}
+#para2 {
+	color: black;
+	font-size: 18x;
+	background-color: lightgrey;
+	display: block;
+	margin-top: 0;
+    margin-left: 7em;
+    margin-right: 7em;
+	border-style:solid;
+	font-family: Tahoma;
+	box-shadow: 1px 1px 1px grey;
+
+	
+}
+
+#para3 {
+	text-align: center;
+	
+}
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+body {
+    background-color: #e6f7ff;
+	width: 100%;
+	height: 2000px;
+	margin: 0;
+	padding: 0;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+th, td {
+    padding: 5px;
+}
+th {
+    text-align: center;
+}
+
+.button {
+    display: block;
+    width: 140px;
+    height: 36px;
+    background: #19e62b;
+    padding: 5px;
+    text-align: center;
+    border-radius: 25px;
+    color: black;
+    font-weight: bold;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+	font-size: 27px;
+	border-style: solid;
+	box-shadow: 1px 1px 1px grey;
+
+
+}
+
+
+
+</style>
+
+<script>
+function clickCounter() {
+    if(typeof(Storage) !== "undefined") {
+        if (localStorage.clickcount) {
+            localStorage.clickcount = Number(localStorage.clickcount)+1;
+			
+        } else {
+            localStorage.clickcount = 1;
+        }
+        document.getElementById("result").innerHTML = "Downloads: " + localStorage.clickcount;
+    } else {
+        document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+    }
+}
+</script>
+
+
+
+
+</head>
+<body>
+	<div class="main_page">
+
+		<img src="WEBkiosk.png" alt="Webkiosk" width="425" height="318,75" border="4" vspace = "16">
+		<a class="button" href="WebKiosk.tar.gz" onclick="clickCounter()" type="button" style="text-decoration:none">Download</a>
+		<div id="result" align="center"></div>
+		<p id="para1"> Setup</p>
+		<p id="para2">1. Download the source code above.</p>
+		<p id="para2">2. Unzip the file to your Raspberry Pi.</p>
+		<p id="para2">3. Run the setup.sh file.</p>
+		<p id="para2">4. Reboot and configure settings.</p>
+		<p id="para2">5. Press "Run web-kiosk".</p>
+		<h3 align="center" >Contact us </h3>
+
+		<table style="width:77%">
+		  <tr>
+			<th>Name</th>
+			<th>GitHub</th> 
+			<th>Email</th>
+		  </tr>
+		  <tr>
+			<td>Sampo Tuisku</td>
+			<td><a href="https://github.com/SAMPROO">SAMPROO</a></td>
+			<td>Sampo.Tuisku@metropolia.fi</td>
+		  </tr>
+		  <tr>
+			<td>Matias Hynnä</td>
+			<td><a href="https://github.com/Matiaseh">Matiaseh<a/></td>
+			<td>Matias.Hynna@metropolia.fi</td>
+		  </tr>
+		  <tr>
+			<td>Joosep Teemaa</td>
+			<td><a href="https://github.com/Jooosep">Jooosep</a></td>
+			<td>Joosept@metropolia.fi</td>
+		  </tr>
+		</table>
+	</div
+</body>
+</html>
