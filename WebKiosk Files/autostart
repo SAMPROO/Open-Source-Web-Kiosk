@@ -1,0 +1,11 @@
+@lxpanel --profile LXDE-pi
+@pcmanfm --desktop --profile LXDE-pi
+@xscreensaver -no-splash
+@point-rpi
+
+@chromium-browser --incognito users.metropolia.fi/~matiaseh/Webkiosk.html
+@python3 /home/pi/setup_kiosk2.py
+#@/home/pi/minimize.sh
+#@chromium-browser --incognito --kiosk www.google.com # load chromium after boot
+#@/home/pi/xauth_root.sh
+#@/home/pi/autorefresh-chromium.sh 5
