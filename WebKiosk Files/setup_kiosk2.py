@@ -7,7 +7,7 @@ from gi.repository import Gtk
 import os
 import time
 import sys
-
+import select
 
               
 class Handler:
@@ -80,6 +80,9 @@ class Handler:
                     
     def file_chosen2(self, widget):
 
+        with open("/home/pi/WebKiosk/.runMode.txt", "w") as myfile:
+            print("1",file = myfile)
+            
         filepath = fileChooser2.get_filename()
         print(filepath)
         filename = fileChooser2.get_file().get_basename()
@@ -93,16 +96,28 @@ class Handler:
                 print("")
 
         if filename.endswith(".mp4") or filename.endswith(".mov") or filename.endswith(".avi") or filename.endswith(".wmv") or filename.endswith(".mpeg") or filename.endswith(".h264"):
-            print('./singleVideoPlayer.sh ' + filepath)
-            os.system('./singleVideoPlayer.sh ' + filepath)
+            with open ("/home/pi/WebKiosk/.runCommand.txt", "w") as myfile:
+                print('/home/pi/WebKiosk/singleVideoPlayer.sh ' + filepath, file = myfile)
+
+            os.system('/home/pi/WebKiosk/kioskMode.sh')
+            print('/home/pi/WebKiosk/singleVideoPlayer.sh ' + filepath)
+            os.system('/home/pi/WebKiosk/singleVideoPlayer.sh ' + filepath)
 
         elif filename.endswith(".png") or filename.endswith(".jpg") or filename.endswith(".tif") or filename.endswith(".pnm") or filename.endswith(".bmp") or filename.endswith(".gif") or filename.endswith(".xpm"):
-            print('./imagePlayer.sh ' + str(int(delay)) + ' ' + filepath)
-            os.system('./imagePlayer.sh ' + str(int(delay)) + ' ' + filepath)
+            with open ("/home/pi/WebKiosk/.runCommand.txt", "w") as myfile:
+                print('/home/pi/WebKiosk/imagePlayer.sh ' + str(int(delay)) + ' ' + filepath, file = myfile)
+
+            os.system('/home/pi/WebKiosk/kioskMode.sh')
+            print('/home/pi/WebKiosk/imagePlayer.sh ' + str(int(delay)) + ' ' + filepath)
+            os.system('/home/pi/WebKiosk/imagePlayer.sh ' + str(int(delay)) + ' ' + filepath)
 
         elif filename.endswith(".odp") or filename.endswith(".ppt") or filename.endswith(".pptx"):
-                print('./slidePlayer.sh ' + filepath + ' ' + filenoend + ' ' + str(int(delay)))
-                os.system('./slidePlayer.sh ' + filepath + ' ' + filenoend + ' ' + str(int(delay)))
+            with open ("/home/pi/WebKiosk/.runCommand.txt", "w") as myfile:
+                print('/home/pi/WebKiosk/slidePlayer.sh ' + filepath + ' ' + filenoend + ' ' + str(int(delay)), file = myfile)
+
+            os.system('/home/pi/WebKiosk/kioskMode.sh')
+            print('/home/pi/WebKiosk/slidePlayer.sh ' + filepath + ' ' + filenoend + ' ' + str(int(delay)))
+            os.system('/home/pi/WebKiosk/slidePlayer.sh ' + filepath + ' ' + filenoend + ' ' + str(int(delay)))
 
         else:
             window.popover2.set_relative_to(widget)
@@ -114,14 +129,22 @@ class Handler:
         filepath = fileChooser2.get_filename()
         filename = fileChooser2.get_file().get_basename()
         delay = spinbutton3.get_value()
-        print('./slidePlayer.sh ' + filepath + ' ' + filename + ' ' + str(int(delay)))
-        os.system('./slidePlayer.sh ' + filepath + ' '  + filename + ' ' + str(int(delay)))
+        with open ("/home/pi/WebKiosk/.runCommand.txt", "w") as myfile:
+            print('/home/pi/WebKiosk/slidePlayer.sh ' + filepath + ' ' + filename + ' ' + str(int(delay)), file = myfile)
+
+        os.system('/home/pi/WebKiosk/kioskMode.sh')
+        print('/home/pi/WebKiosk/slidePlayer.sh ' + filepath + ' ' + filename + ' ' + str(int(delay)))
+        os.system('/home/pi/WebKiosk/slidePlayer.sh ' + filepath + ' '  + filename + ' ' + str(int(delay)))
         
     def video_chosen(self, button):
 
         filepath = fileChooser2.get_filename()
-        print('./videoPlayer.sh ' + filepath)
-        os.system('./videoPlayer.sh ' + filepath)
+        with open ("/home/pi/WebKiosk/.runCommand.txt", "w") as myfile:
+            print('/home/pi/WebKiosk/videoPlayer.sh ' + filepath, file = myfile)
+            
+        os.system('/home/pi/WebKiosk/kioskMode.sh')
+        print('/home/pi/WebKiosk/videoPlayer.sh ' + filepath)
+        os.system('/home/pi/WebKiosk/videoPlayer.sh ' + filepath)
 
     def cancel1_clicked(self, button):
         
@@ -129,6 +152,10 @@ class Handler:
         window.popover2.hide()
         
     def folder_chosen(self, widget):
+        
+        with open("/home/pi/WebKiosk/.runMode.txt", "w") as myfile:
+            print("1",file = myfile)
+            
         direc = folderChooser.get_filename()
         delay = spinbutton3.get_value()
         isVideo = False
@@ -144,14 +171,22 @@ class Handler:
         if isImage:
             
             print("imagescript")
-            print('./imagePlayer.sh ' + str(int(delay)) + ' ' + direc)
-            os.system('./imagePlayer.sh ' + str(int(delay)) + ' ' + direc)
+            with open ("/home/pi/WebKiosk/.runCommand.txt", "w") as myfile:
+                print('/home/pi/WebKiosk/imagePlayer.sh ' + str(int(delay)) + ' ' + direc, file = myfile)
+
+            os.system('/home/pi/WebKiosk/kioskMode.sh')
+            print('/home/pi/WebKiosk/imagePlayer.sh ' + str(int(delay)) + ' ' + direc)
+            os.system('/home/pi/WebKiosk/imagePlayer.sh ' + str(int(delay)) + ' ' + direc)
             
         elif isVideo:
             
             print("videoscript")
-            print('./videoPlayer.sh ' + direc)
-            os.system('./videoPlayer.sh ' + direc)
+            with open ("/home/pi/WebKiosk/.runCommand.txt", "w") as myfile:
+                print('/home/pi/WebKiosk/videoPlayer.sh ' + direc, file = myfile)
+
+            os.system('/home/pi/WebKiosk/kioskMode.sh')
+            print('/home/pi/WebKiosk/videoPlayer.sh ' + direc)
+            os.system('/home/pi/WebKiosk/videoPlayer.sh ' + direc)
 
         else:
             
@@ -164,12 +199,20 @@ class Handler:
             
 
     def image_folder_chosen(self, button):
-        print('./imagePlayer.sh ' + direc)
-        os.system('./imagePlayer.sh ' + direc)
+        with open ("/home/pi/WebKiosk/.runCommand.txt", "w") as myfile:
+            print('/home/pi/WebKiosk/imagePlayer.sh ' + direc, file = myfile)
+
+        os.system('/home/pi/WebKiosk/kioskMode.sh')
+        print('/home/pi/WebKiosk/imagePlayer.sh ' + direc)
+        os.system('/home/pi/WebKiosk/imagePlayer.sh ' + direc)
 
     def videos_folder_chosen(self, button):
-        print('./videoPlayer.sh ' + direc)
-        os.system('./videoPlayer.sh ' + direc)
+        with open ("/home/pi/WebKiosk/.runCommand.txt", "w") as myfile:
+            print('./videoPlayer.sh ' + direc, file = myfile)
+
+        os.system('/home/pi/WebKiosk/kioskMode.sh')
+        print('/home/pi/WebKiosk/videoPlayer.sh ' + direc)
+        os.system('/home/pi/WebKiosk/videoPlayer.sh ' + direc)
 
     def cancel2_clicked(self, button):
         folderChooser.unselect_all()
@@ -178,7 +221,6 @@ class Handler:
     def addbutton1_is_clicked(self, button):
         newBox = Gtk.Box(spacing = 5)
         my_entry = Gtk.Entry()
-        url_list.append(my_entry)
         my_label = Gtk.Label()
         my_remove = Gtk.Button("X")
         my_remove.connect("clicked", self.removebutton1_is_clicked)
@@ -198,12 +240,15 @@ class Handler:
         newBox.add(my_down)
         
         box.add(newBox)
+        print(box)
+        for n in box.get_children():
+            print(n.get_children())
+            print(n.get_children()[1].get_text())
         window.show_all()
 
     def removebutton1_is_clicked(self, button):
         parent = button.get_parent()
         print(parent.get_children())
-        url_list.remove(parent.get_children()[1])
         box.remove(parent)
 
     def upbutton1_is_clicked(self,button):
@@ -242,33 +287,46 @@ class Handler:
     def loadprevious_is_clicked(self, button):
         print(self)
         print(button)
-        with open ("Previous.txt", "r") as myfile:
+        with open ("/home/pi/WebKiosk/Previous.txt", "r") as myfile:
             data=myfile.readlines()
             switchString = data[0].replace('\n', '')
             refreshString = data[1].replace('\n', '')
 
-            spinbutton1.set_value(float(switchString))
-            spinbutton2.set_value(float(refreshString))
-            for i in box.get_children():
-                box.remove(i)
-            for i in data[2:]:
-                newBox = Gtk.Box(spacing = 5)
-                my_entry = Gtk.Entry()
-                my_entry.set_text(i.replace('\n', ''))
-                my_label = Gtk.Label()
-                my_remove = Gtk.Button("X")
-                my_remove.connect("clicked", self.removebutton1_is_clicked)
-                my_label.set_text("URL:")
-                newBox.add(my_label)
-                newBox.add(my_entry)
-                newBox.add(my_remove)
-                box.add(newBox)
-            window.show_all()
+        spinbutton1.set_value(float(switchString))
+        spinbutton2.set_value(float(refreshString))
+        for i in box.get_children():
+            box.remove(i)
+        for i in data[2:]:
+            newBox = Gtk.Box(spacing = 5)
+            my_entry = Gtk.Entry()
+            my_entry.set_text(i.replace('\n', ''))
+            my_label = Gtk.Label()
+            my_remove = Gtk.Button("X")
+            my_remove.connect("clicked", self.removebutton1_is_clicked)
+            my_label.set_text("URL:")
+            my_up = Gtk.Button()
+            my_up.set_image(Gtk.Image.new_from_stock("gtk-go-up", 4))
+            my_up.set_always_show_image(True)
+            my_down = Gtk.Button()
+            my_down.set_image(Gtk.Image.new_from_stock("gtk-go-down", 4))
+            my_down.set_always_show_image(True)
+            my_up.connect("clicked", self.upbutton1_is_clicked)
+            my_down.connect("clicked", self.downbutton1_is_clicked)
+            newBox.add(my_label)
+            newBox.add(my_entry)
+            newBox.add(my_remove)
+            newBox.add(my_up)
+            newBox.add(my_down)
+            box.add(newBox)
+        window.show_all()
                 
 
     def applybutton1_is_clicked(self, button):
+
+        with open("/home/pi/WebKiosk/.runMode.txt", "w") as myfile:
+            print("0",file = myfile)
         
-        with open("Previous.txt", "w") as text_file:
+        with open("/home/pi/WebKiosk/Previous.txt", "w") as text_file:
             print(spinbutton1.get_value(), file = text_file)
             print(spinbutton2.get_value(), file = text_file)
             for i in box.get_children():
@@ -276,27 +334,34 @@ class Handler:
 
         if len(box.get_children()) > 0:
             
-            Gtk.main_quit()
-            window.destroy()
             switchRate = int(spinbutton1.get_value())
             refreshRate = int(spinbutton2.get_value())
             for i in box.get_children():
-                print(i[1].get_text())
+                print(i.get_children()[1].get_text())
                 websiteList.append(i.get_children()[1].get_text())
-            
-            os.system('./xauth_root.sh')
+
+            window.destroy()
+            Gtk.main_quit()
+
+            os.system('/home/pi/WebKiosk/kioskMode.sh')
             os.system('export DISPLAY=:0')
+            os.system('/home/pi/WebKiosk/xauth_root.sh')
             cycle = 0
-            os.system('./autorefresh-chromium.sh '+ str(refreshRate))
+            time.sleep(1)
+            print("lets go")
             
             try:
                 while True:
                     if cycle == 0:
+                        print(websiteList)
                         for n in websiteList:
+                            time.sleep(1)
+                            print('chromium-browser --incognito '+n)
                             os.system('chromium-browser --incognito '+n)
                             if cycle == 0:
                                 os.system('xdotool key "F11" &')
                                 cycle = 1
+                                os.system('/home/pi/WebKiosk/autorefresh-chromium.sh '+ str(refreshRate))
                             time.sleep(switchRate)
 
                     else:
@@ -316,24 +381,10 @@ class Handler:
             dialog.destroy()
             fileChooser.unselect_all()
             return False
-            
-            
-
-print('sys.argv[0] =', sys.argv[0])
-pathname = os.path.dirname(sys.argv[0])
-print('path =', pathname)
-print('full path =', os.path.abspath(pathname))
-fullPath = os.path.abspath(pathname)
-
-filepath = ""
-filename = ""
-filenoend = ""
-ending = ""
-direc = ""
-
+        
 handler = Handler()
 builder = Gtk.Builder()
-builder.add_from_file("webKioskUi.glade")
+builder.add_from_file("/home/pi/WebKiosk/webKioskUi.glade")
 window = builder.get_object("window1")
 box = builder.get_object("box")
 
@@ -390,8 +441,7 @@ window.popover3.set_position(Gtk.PositionType.BOTTOM)
 
 index = 1
 websiteList = []
-refreshRate = 0
-switchRate = 0
+
 websites = []
 
 builder.connect_signals(handler)
@@ -411,8 +461,6 @@ spinbutton1.configure(adjustment1, 1, 0)
 spinbutton2.configure(adjustment2, 1, 0)
 spinbutton3.configure(adjustment3, 1, 0)
 
-entry = builder.get_object("entry1")
-url_list = [entry]
 
 fileChooser = builder.get_object("filechoosebutton1")
 
@@ -424,6 +472,78 @@ folderChooser = builder.get_object("folderchoosebutton1")
 folderChooser.set_action(2)
 
 
-window.show_all()
+def main():
 
-Gtk.main()
+    window.show_all()
+    Gtk.main()
+
+open("/home/pi/WebKiosk/.runMode.txt", "a+")
+    
+with open("/home/pi/WebKiosk/.runMode.txt", "r") as myfile:
+    data = myfile.readlines()
+    
+
+if len(data) < 1:
+    main()
+
+else:
+    
+    print ("You have 10 seconds to press ENTER!")
+    print("Pressing ENTER will interrupt Kiosk autostart and open the Setup.")
+
+    i, o, e = select.select( [sys.stdin], [], [], 10 )
+
+    if (i):
+        
+        os.system('xdotool getactivewindow windowminimize')
+        main()
+             
+    else:
+        
+        print("Launching Kiosk Mode")
+        time.sleep(1)
+        os.system('xdotool getactivewindow windowminimize')
+        if data[0].replace('\n','') == "0":
+            with open ("/home/pi/WebKiosk/Previous.txt", "r") as myfile:
+                data=myfile.readlines()
+                switchRate = float(data[0].replace('\n', ''))
+                refreshRate = float(data[1].replace('\n', ''))
+            websiteList = []
+            for n in data[2:]:
+                websiteList.append(n.replace('\n', ''))
+                
+            os.system('/home/pi/WebKiosk/kioskMode.sh')
+            os.system('/home/pi/WebKiosk/xauth_root.sh')
+            os.system('export DISPLAY=:0')
+            cycle = 0
+            
+            try:
+                while True:
+                    if cycle == 0:
+                        for n in websiteList:
+                            os.system('chromium-browser --incognito '+n)
+                            if cycle == 0:
+                                os.system('xdotool key "F11" &')
+                                cycle = 1
+                                os.system('/home/pi/WebKiosk/autorefresh-chromium.sh '+ str(refreshRate))
+                            print(switchRate)
+                            time.sleep(int(switchRate))
+
+                    else:
+                        for n in range(2,len(websiteList)+1):
+                            os.system('xdotool key "ctrl+'+str(n)+'"')
+                            print(switchRate)
+                            time.sleep(int(switchRate))
+                                
+            except KeyboardInterrupt:
+                exit
+
+        else:
+            with open ("/home/pi/WebKiosk/.runCommand.txt", "r") as myfile:
+                data = myfile.readlines()
+            command = data[0].replace('\n', '')
+            print(command)
+            os.system(command)
+           
+
+    
