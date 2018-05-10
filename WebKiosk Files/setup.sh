@@ -7,6 +7,8 @@ sudo apt-get -y install libreoffice
 sudo apt-get -y install imagemagick
 sudo apt-get -y install xdotool
 sudo apt-get -y install feh
+sudo apt-get -y install unclutter
+sudo apt-get -y install at-spi2-core
 
 mv -f /home/pi/Downloads/WebKiosk/* /home/pi/
 mv -f /home/pi/autostart /etc/xdg/lxsession/LXDE-pi/
