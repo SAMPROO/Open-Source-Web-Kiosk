@@ -355,18 +355,18 @@ class Handler:
                     if cycle == 0:
                         print(websiteList)
                         for n in websiteList:
-                            time.sleep(1)
-                            print('chromium-browser --incognito '+n)
-                            os.system('chromium-browser --incognito '+n)
-                            if cycle == 0:
+                            print('chromium-browser --incognito '+ n + '&')
+                            os.system('chromium-browser --incognito '+ n + '&')
+                            if cycle == 1:
                                 os.system('xdotool key "F11" &')
-                                cycle = 1
                                 os.system('/home/pi/WebKiosk/autorefresh-chromium.sh '+ str(refreshRate))
                             time.sleep(switchRate)
+                            cycle += 1
 
                     else:
-                        for n in range(2,len(websiteList)+1):
-                            os.system('xdotool key "ctrl+'+str(n)+'"')
+                        for n in range(0,len(websiteList)):
+                            tabNumber = n + 1
+                            os.system('xdotool key "ctrl+'+str(tabNumber)+'"')
                             time.sleep(switchRate)
                                 
             except KeyboardInterrupt:
@@ -520,20 +520,21 @@ else:
             try:
                 while True:
                     if cycle == 0:
+                        print(websiteList)
                         for n in websiteList:
-                            os.system('chromium-browser --incognito '+n)
-                            if cycle == 0:
+                            print('chromium-browser --incognito '+ n + '&')
+                            os.system('chromium-browser --incognito '+ n + '&')
+                            if cycle == 1:
                                 os.system('xdotool key "F11" &')
-                                cycle = 1
                                 os.system('/home/pi/WebKiosk/autorefresh-chromium.sh '+ str(refreshRate))
-                            print(switchRate)
-                            time.sleep(int(switchRate))
+                            time.sleep(switchRate)
+                            cycle += 1
 
                     else:
-                        for n in range(2,len(websiteList)+1):
-                            os.system('xdotool key "ctrl+'+str(n)+'"')
-                            print(switchRate)
-                            time.sleep(int(switchRate))
+                        for n in range(0,len(websiteList)):
+                            tabNumber = n + 1
+                            os.system('xdotool key "ctrl+'+str(tabNumber)+'"')
+                            time.sleep(switchRate)
                                 
             except KeyboardInterrupt:
                 exit
